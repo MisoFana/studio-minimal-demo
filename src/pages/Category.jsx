@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
 import { categories, products, priceToNumber } from '../data'
@@ -8,6 +8,11 @@ export default function Category() {
   const category = categories.find((c) => c.slug === slug)
   const [subcategory, setSubcategory] = useState('Wszystkie')
   const [sort, setSort] = useState('domyslnie')
+
+  useEffect(() => {
+    setSubcategory('Wszystkie')
+    setSort('domyslnie')
+  }, [slug])
 
   const baseProducts = useMemo(
     () => products.filter((p) => p.tag === category?.name),
